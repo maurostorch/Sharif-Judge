@@ -428,12 +428,15 @@ class Assignment_model extends CI_Model
 	* Save Test Case
 	*
 	* Saves a Test Case in the file structure
-	* 
+	*
 	*/
-	public function save_test_case($assignment_id, $problem_id, $test_id, $in, $out) {
+	public function save_test_case($assignment_id, $problem_id, $test_id, $in, $out, $memlimit=256, $timelimit=3) {
 		$workdir = rtrim($this->settings_model->get_setting('assignments_root'), '/')."/assignment_{$assignment_id}/p{$problem_id}";
 		mkdir("$workdir/in");
 		mkdir("$workdir/out");
+		mkdir("$workdir/config");
+		file_put_contents("$workdir/config/mem{$test_id}.txt", $memlimit);
+		file_put_contents("$workdir/config/time{$test_id}.txt", $timelimit);
 		file_put_contents("$workdir/in/input{$test_id}.txt", $in);
 		file_put_contents("$workdir/out/output{$test_id}.txt", $out);
 	}

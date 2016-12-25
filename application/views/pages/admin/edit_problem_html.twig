@@ -52,6 +52,9 @@ $(document).ready(function(){
                                 '               <td><textarea dir="auto" name="in_COUNT" rows="10" cols="35" class="sharif_input"></textarea></td>'+
                                 '               <td><textarea dir="auto" name="out_COUNT" rows="10" cols="35" class="sharif_input"></textarea></td>'+
                                 '       </tr>'+
+                                '       <tr>'+
+                                '               <td>Mem. Size in MB:<input name="mem_COUNT" class="sharif_input" value="256">&nbsp;Timeout in msec:<input name="time_COUNT" class="sharif_input" value="3000"></td>'+
+                                '       </tr>'+
                                 '</table>'+
                                 '</p>';
         $(document).ready(function() {
@@ -78,6 +81,9 @@ $(document).ready(function(){
                         <tr>
                                 <td><textarea dir="auto" name="in_{{ count }}" rows="10" cols="35" class="sharif_input" >{{ item["in"] }}</textarea></td>
                                 <td><textarea dir="auto" name="out_{{ count }}" rows="10" cols="35" class="sharif_input">{{ item["out"] }}</textarea></td>
+                        </tr>
+                        <tr>
+                                <td>Mem. Size:<input name="mem_{{ count }}" class="sharif_input" value="{{ item["mem"] }}">&nbsp;Timeout in msec:<input name="time_{{ count }}" class="sharif_input" value="{{ item["time"] }}"></td>
                         </tr>
                         </tbody>
                 </table>

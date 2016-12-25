@@ -143,9 +143,10 @@ class Problems extends CI_Controller
 			}
 			$c=1;
 			for ($i=1;$i<=$this->input->post('num_test_cases');$i++) {
-				echo "<script>alert('".strlen(trim($this->input->post("in_{$i}")))."');</script>";
+				// not sure what was this alert  :P
+				//echo "<script>alert('".strlen(trim($this->input->post("in_{$i}")))."');</script>";
 				if (strlen(trim($this->input->post("in_{$i}"))) > 0 || strlen(trim($this->input->post("out_{$i}"))) > 0) {
-					$this->assignment_model->save_test_case($assignment_id, $problem_id,$c,$this->input->post("in_{$i}"),$this->input->post("out_{$i}"));
+					$this->assignment_model->save_test_case($assignment_id, $problem_id,$c,$this->input->post("in_{$i}"),$this->input->post("out_{$i}"), $this->input->post("mem_{$i}"),$this->input->post("time_{$i}"));
 					$c++;
 				}
 			}
@@ -165,13 +166,14 @@ class Problems extends CI_Controller
 		if (is_dir("{$workdir}/in") && is_dir("{$workdir}/out")) {
 			$test=1;
 			while(true) {
-				if (is_file("{$workdir}/in/input{$test}.txt") && is_file("{$workdir}/out/output{$test}.txt")) {
-					$data['problem']['tests'][] = array("in"=>file_get_contents("{$workdir}/in/input{$test}.txt"), "out"=>file_get_contents("{$workdir}/out/output{$test}.txt"));
+				if (is_file("{$workdir}/in/input{$test}.txt") && is_file("{$workdir}/out/output{$test}.txt")
+						&& is_file("{$workdir}/config/mem{$test}.txt") && is_file("{$workdir}/config/time{$test}.txt")) {
+					$data['problem']['tests'][] = array("in"=>file_get_contents("{$workdir}/in/input{$test}.txt"), "out"=>file_get_contents("{$workdir}/out/output{$test}.txt"), "mem"=>file_get_contents("{$workdir}/config/mem{$test}.txt"), "time"=> file_get_contents("{$workdir}/config/time{$test}.txt"));
 					$test++;
 				} else {
 					break;
 				}
-			}				
+			}
 		}
 
 
